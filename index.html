@@ -1,0 +1,534 @@
+HTML
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funciones JavaScript - Ejercicios</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #d6c99b;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* MENU VERTICAL */
+
+        .menu {
+            width: 250px;
+            background: #403522;
+            color: #fff4c2;
+            padding: 30px 20px;
+            min-height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            border-right: 6px solid #17140e;
+        }
+
+        .menu h2 {
+            text-align: center;
+            margin-bottom: 35px;
+            font-size: 22px;
+            background: #82713d;
+            padding: 12px;
+            border: 3px solid #17140e;
+        }
+
+        .menu p {
+            color: #e5d59d;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .menu button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 3px solid #17140e;
+            background: #b69a42;
+            color: #17140e;
+            cursor: pointer;
+            font-size: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .menu button:hover {
+            background: #e2c75e;
+            transform: translateX(3px);
+        }
+
+        /* CONTENIDO */
+
+        .contenido {
+            margin-left: 250px;
+            padding: 40px;
+            width: calc(100% - 250px);
+        }
+
+        header {
+            background: #81703e;
+            color: #fff4c2;
+            padding: 30px;
+            border: 5px solid #302719;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 8px 8px 0px #51442b;
+        }
+
+        header h1 {
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .ejercicio {
+            display: none;
+            background: #eee3bd;
+            padding: 35px;
+            border: 5px solid #403522;
+            box-shadow: 8px 8px 0px #82713d;
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .ejercicio.activo {
+            display: block;
+        }
+
+        .ejercicio h2 {
+            color: #514324;
+            margin-bottom: 15px;
+            border-bottom: 4px solid #a58b43;
+            padding-bottom: 10px;
+        }
+
+        .descripcion {
+            color: #493e2a;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin: 15px 0 8px;
+            color: #403522;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 3px solid #78663a;
+            background: #fffbea;
+            font-size: 16px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #292316;
+            background: #fff3c4;
+        }
+
+        .calcular {
+            width: 100%;
+            padding: 14px;
+            margin-top: 25px;
+            background: #81703e;
+            color: white;
+            border: 3px solid #302719;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .calcular:hover {
+            background: #a18a48;
+        }
+
+        .resultado {
+            margin-top: 25px;
+            padding: 20px;
+            background: #d4c17c;
+            border: 4px solid #65542e;
+            font-size: 18px;
+            color: #302719;
+            display: none;
+        }
+
+        .resultado.mostrar {
+            display: block;
+        }
+
+        .informacion {
+            background: #d8c99d;
+            padding: 15px;
+            margin-top: 25px;
+            border: 3px dashed #78663a;
+            color: #493e2a;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 35px;
+            padding: 15px;
+            color: #403522;
+            border-top: 4px solid #82713d;
+        }
+
+        /* DISEÑO PARA CELULARES */
+
+        @media (max-width: 700px) {
+            body {
+                display: block;
+            }
+
+            .menu {
+                position: relative;
+                width: 100%;
+                min-height: auto;
+                border-right: none;
+                border-bottom: 6px solid #17140e;
+            }
+
+            .menu button {
+                text-align: center;
+            }
+
+            .contenido {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+            }
+
+            .ejercicio {
+                padding: 22px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- MENU VERTICAL -->
+
+    <nav class="menu">
+
+        <h2>MI PÁGINA WEB</h2>
+
+        <p>Ejercicios de JavaScript</p>
+
+        <button onclick="mostrarEjercicio('inicio')">
+            🏠 Inicio
+        </button>
+
+        <button onclick="mostrarEjercicio('circulo')">
+            🔵 Área del círculo
+        </button>
+
+        <button onclick="mostrarEjercicio('imc')">
+            ⚖️ Índice de Masa Corporal
+        </button>
+
+    </nav>
+
+    <!-- CONTENIDO PRINCIPAL -->
+
+    <main class="contenido">
+
+        <header>
+            <h1>Funciones que devuelven resultados</h1>
+            <p>Ejercicios de JavaScript - HTML</p>
+        </header>
+
+        <!-- INICIO -->
+
+        <section id="inicio" class="ejercicio activo">
+
+            <h2>Bienvenido</h2>
+
+            <p class="descripcion">
+                En esta página encontrarás dos ejercicios de
+                programación utilizando HTML, CSS y JavaScript.
+                Cada ejercicio utiliza funciones que reciben
+                parámetros, realizan operaciones y devuelven
+                resultados.
+            </p>
+
+            <div class="informacion">
+                <h3>Ejercicios disponibles:</h3>
+                <br>
+                <p>🔵 Página 97: Cálculo del área de un círculo.</p>
+                <br>
+                <p>⚖️ Página 98: Cálculo del Índice de Masa Corporal.</p>
+                <br>
+                Selecciona una opción del menú vertical para comenzar.
+            </div>
+
+        </section>
+
+        <!-- EJERCICIO 1: AREA DEL CIRCULO -->
+
+        <section id="circulo" class="ejercicio">
+
+            <h2>Área del círculo</h2>
+
+            <p class="descripcion">
+                Este ejercicio utiliza una función que recibe
+                el radio de un círculo y devuelve su área.
+                La fórmula utilizada es:
+                <strong>Área = π × radio × radio.</strong>
+            </p>
+
+            <label for="radio">
+                Escribe el valor del radio del círculo:
+            </label>
+
+            <input
+                type="number"
+                id="radio"
+                placeholder="Ejemplo: 10"
+                min="1"
+                step="1"
+            >
+
+            <button class="calcular" onclick="mostrarArea()">
+                Calcular área
+            </button>
+
+            <div id="resultadoArea" class="resultado"></div>
+
+            <div class="informacion">
+                <strong>Funcionamiento:</strong>
+                <p>1. Se solicita el valor del radio.</p>
+                <p>2. Se llama a la función calcularAreaCirculo().</p>
+                <p>3. Se calcula el área utilizando Math.PI.</p>
+                <p>4. Se utilizan dos decimales con toFixed(2).</p>
+                <p>5. La función devuelve el resultado con return.</p>
+            </div>
+
+        </section>
+
+        <!-- EJERCICIO 2: IMC -->
+
+        <section id="imc" class="ejercicio">
+
+            <h2>Índice de Masa Corporal (IMC)</h2>
+
+            <p class="descripcion">
+                Este ejercicio calcula el Índice de Masa Corporal
+                utilizando el peso y la estatura de una persona.
+                La fórmula es:
+                <strong>IMC = peso / altura².</strong>
+            </p>
+
+            <label for="peso">
+                ¿Cuánto pesas? (en kilogramos)
+            </label>
+
+            <input
+                type="number"
+                id="peso"
+                placeholder="Ejemplo: 70"
+                min="1"
+                step="any"
+            >
+
+            <label for="altura">
+                ¿Cuánto mides? (en metros)
+            </label>
+
+            <input
+                type="number"
+                id="altura"
+                placeholder="Ejemplo: 1.70"
+                min="0.1"
+                step="any"
+            >
+
+            <button class="calcular" onclick="mostrarIMC()">
+                Calcular IMC
+            </button>
+
+            <div id="resultadoIMC" class="resultado"></div>
+
+            <div class="informacion">
+                <strong>Funcionamiento:</strong>
+                <p>1. Se solicita el peso en kilogramos.</p>
+                <p>2. Se solicita la altura en metros.</p>
+                <p>3. Se llama a la función calcularIMC().</p>
+                <p>4. Se utiliza Math.pow() para elevar la altura al cuadrado.</p>
+                <p>5. Se utiliza Math.round() para redondear el resultado.</p>
+                <p>6. Se utilizan condiciones if, else if y else.</p>
+                <p>7. Se muestra el resultado y su clasificación.</p>
+            </div>
+
+        </section>
+
+        <footer>
+            <p>Proyecto de Diseño Avanzado de Páginas Web</p>
+            <p>Funciones que devuelven resultados</p>
+        </footer>
+
+    </main>
+
+    <script>
+
+        // FUNCION PARA CAMBIAR DE SECCION
+
+        function mostrarEjercicio(id) {
+
+            var secciones = document.querySelectorAll(".ejercicio");
+
+            secciones.forEach(function(seccion) {
+                seccion.classList.remove("activo");
+            });
+
+            document.getElementById(id).classList.add("activo");
+        }
+
+
+        // EJERCICIO 1: FUNCION PARA CALCULAR EL AREA DEL CIRCULO
+
+        function calcularAreaCirculo(radio) {
+
+            var area = Math.PI * radio * radio;
+
+            var area2 = area.toFixed(2);
+
+            return area2;
+
+        }
+
+
+        // FUNCION PARA MOSTRAR EL RESULTADO DEL AREA
+
+        function mostrarArea() {
+
+            var radio = Number(document.getElementById("radio").value);
+
+            var resultado = document.getElementById("resultadoArea");
+
+            if (!Number.isInteger(radio) || radio <= 0) {
+
+                resultado.innerHTML =
+                    "Por favor, escribe un número entero positivo para el radio.";
+
+                resultado.classList.add("mostrar");
+
+                return;
+            }
+
+            var areaCirculo = calcularAreaCirculo(radio);
+
+            resultado.innerHTML =
+                "El área del círculo es: <strong>" +
+                areaCirculo + "</strong> unidades cuadradas.";
+
+            resultado.classList.add("mostrar");
+
+        }
+
+
+        // EJERCICIO 2: FUNCION PARA CALCULAR EL IMC
+
+        // IMC = peso / altura (al cuadrado)
+
+        function calcularIMC(peso, altura) {
+
+            return peso / Math.pow(altura, 2);
+
+        }
+
+
+        // FUNCION PARA MOSTRAR Y CLASIFICAR EL IMC
+
+        function mostrarIMC() {
+
+            var peso = Number(document.getElementById("peso").value);
+
+            var altura = Number(document.getElementById("altura").value);
+
+            var resultado = document.getElementById("resultadoIMC");
+
+            if (
+                !Number.isFinite(peso) ||
+                !Number.isFinite(altura) ||
+                peso <= 0 ||
+                altura <= 0
+            ) {
+
+                resultado.innerHTML =
+                    "Por favor, ingresa un peso y una estatura válidos.";
+
+                resultado.classList.add("mostrar");
+
+                return;
+            }
+
+            // Llama a la funcion con sus dos parametros
+
+            var IMC = Math.round(calcularIMC(peso, altura));
+
+            // Evalua cual es el IMC
+
+            if (IMC >= 18.5 && IMC < 24.9) {
+
+                resultado.innerHTML =
+                    "El IMC es <strong>" + IMC +
+                    "</strong>. Tienes un peso normal.";
+
+            }
+
+            else if (IMC >= 25 && IMC < 29.99) {
+
+                resultado.innerHTML =
+                    "El IMC es <strong>" + IMC +
+                    "</strong>. Tienes sobrepeso.";
+
+            }
+
+            else if (IMC >= 30 && IMC < 34.99) {
+
+                resultado.innerHTML =
+                    "El IMC es <strong>" + IMC +
+                    "</strong>. Tienes obesidad moderada.";
+
+            }
+
+            else if (IMC >= 35 && IMC < 39.9) {
+
+                resultado.innerHTML =
+                    "El IMC es <strong>" + IMC +
+                    "</strong>. Tienes obesidad severa.";
+
+            }
+
+            else {
+
+                resultado.innerHTML =
+                    "No aplica con ese peso o estatura.";
+
+            }
+
+            resultado.classList.add("mostrar");
+
+        }
+
+    </script>
+
+</body>
+</html>
+
+Copiado
